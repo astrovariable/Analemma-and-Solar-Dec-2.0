@@ -428,7 +428,15 @@ let d=new Date(dateStr)
 let start=null
 let end=null
 
-for(let t=5*60;t<=19*60;t+=5){
+// Board dimensions (landscape A4)
+let boardW=29.7
+let boardH=21
+
+// Gnomon position relative to board
+let gx=29.7-14.8
+let gy=14
+
+for(let t=5*60;t<=19*60;t+=1){
 
 let IST=t/60
 
@@ -438,7 +446,20 @@ if(pos.alt<=0) continue
 
 let L=height/Math.tan(pos.alt)
 
-if(L<30){
+let saz=pos.az+Math.PI
+
+let x=L*Math.sin(saz)
+let y=L*Math.cos(saz)
+
+let px=gx+x
+let py=gy-y
+
+if(
+px>=0 &&
+px<=boardW &&
+py>=0 &&
+py<=boardH
+){
 
 if(start===null) start=IST
 end=IST
@@ -453,6 +474,10 @@ output.innerHTML=
 "Observation Window:<br>"+
 formatTime(start)+" to "+
 formatTime(end)+" IST"
+
+}else{
+
+output.innerHTML="Shadow never falls inside board."
 
 }
 
