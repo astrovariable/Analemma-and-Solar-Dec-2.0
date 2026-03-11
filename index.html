@@ -395,6 +395,24 @@ output.innerHTML=
 }
 
 
+function formatTime(decimalHour){
+
+let h=Math.floor(decimalHour)
+let m=Math.round((decimalHour-h)*60)
+
+if(m==60){
+h++
+m=0
+}
+
+let hh=h.toString().padStart(2,'0')
+let mm=m.toString().padStart(2,'0')
+
+return hh+":"+mm
+
+}
+
+
 
 function observationWindow(){
 
@@ -433,8 +451,8 @@ if(start!==null){
 
 output.innerHTML=
 "Observation Window:<br>"+
-start.toFixed(2)+" hrs to "+
-end.toFixed(2)+" hrs IST"
+formatTime(start)+" to "+
+formatTime(end)+" IST"
 
 }
 
