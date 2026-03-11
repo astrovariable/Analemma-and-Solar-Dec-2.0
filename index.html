@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shanku Yantra</title>
+<title>Solar Shadow Lab</title>
 
 <style>
 
@@ -13,33 +13,55 @@ body{
 font-family:Arial;
 max-width:900px;
 margin:auto;
-padding:20px;
+padding:12px;
+}
+
+h2{
+text-align:center;
+}
+
+.tab{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+margin-bottom:10px;
 }
 
 button{
-padding:8px 14px;
-margin:5px;
+padding:8px 12px;
+margin:3px;
+flex-grow:1;
 }
 
 input{
 padding:6px;
-margin:4px;
+margin-top:4px;
+width:100%;
+box-sizing:border-box;
+}
+
+.controls{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:10px;
+margin-top:10px;
 }
 
 canvas{
 border:1px solid black;
-margin-top:20px;
+margin-top:15px;
 width:100%;
-max-width:900px;
-}
-
-.tab{
-margin-bottom:15px;
+height:auto;
 }
 
 .active{
 background:#333;
 color:white;
+}
+
+#output{
+margin-top:10px;
+font-weight:bold;
 }
 
 </style>
@@ -48,7 +70,7 @@ color:white;
 
 <body>
 
-<h2>Shanku Yantra</h2>
+<h2>Solar Shadow Lab</h2>
 
 <div class="tab">
 
@@ -63,7 +85,7 @@ color:white;
 </div>
 
 
-<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:900px;margin-top:15px;">
+<div class="controls">
 
 <div>
 <label>Latitude</label><br>
@@ -102,7 +124,7 @@ color:white;
 
 <div id="output"></div>
 
-<canvas id="board" width="900" height="650"></canvas>
+<canvas id="board"></canvas>
 
 <script>
 
@@ -192,15 +214,29 @@ return {alt:alt,az:az}
 }
 
 
+function resizeCanvas(){
+
+let canvas=document.getElementById("board")
+
+let width=canvas.clientWidth
+
+canvas.width=width
+canvas.height=width*0.72
+
+}
+
 
 function drawBoard(){
+
+resizeCanvas()
+
 
 let canvas=document.getElementById("board")
 let ctx=canvas.getContext("2d")
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-let scale=10
+let scale=Math.min(canvas.width/35,canvas.height/30)
 
 let boardW
 let boardH
@@ -497,4 +533,3 @@ drawBoard()
 
 </body>
 </html>
-
